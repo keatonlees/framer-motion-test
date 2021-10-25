@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { AnimatePresence } from "framer-motion";
+import { Switch, Route } from "react-router-dom";
+
+import "./App.css";
+
+import HomePage from "./pages/HomePage";
+import NewPage from "./pages/NewPage";
 
 function App() {
+  const imageSize = {
+    width: 524,
+    height: 650,
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Route
+      render={({ location }) => (
+        <AnimatePresence initial={false} exitBeforeEnter>
+          <Switch location={location} key={location.pathname}>
+            <Route
+              exact
+              path="/"
+              render={() => <HomePage imageSize={imageSize} />}
+            />
+            <Route
+              exact
+              path="/new"
+              render={() => <NewPage imageSize={imageSize} />}
+            />
+          </Switch>
+        </AnimatePresence>
+      )}
+    />
   );
 }
 
